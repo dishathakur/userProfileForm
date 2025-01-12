@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-user-form',
@@ -8,17 +10,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UserFormComponent implements OnInit {
   userForm: FormGroup = new FormGroup({});
+  users: User[] = [];
 
-  constructor(private formbuilder: FormBuilder) {}
+  constructor(
+    private formbuilder: FormBuilder,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.userForm = this.formbuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      inputEmail: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if (this.userForm.valid) {
+      let user: User = this.userForm.value;
+
+      this.userService.addUser(user).subscribe(() => {
+        this.users.push(user);
+        console.log(this.users);
+      });
+    }
+  }
 }
