@@ -1,10 +1,10 @@
-<form>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div class="form-group col-md-6">
     <label for="firstName">First Name</label>
     <input
       type="text"
       class="form-control"
-      id="firstName"
+      formControlName="firstName"
       placeholder="Enter First Name..."
     />
   </div>
@@ -13,7 +13,7 @@
     <input
       type="text"
       class="form-control"
-      id="lastName"
+      formControlName="lastName"
       placeholder="Enter Last Name..."
     />
   </div>
@@ -23,7 +23,7 @@
       <input
         type="email"
         class="form-control"
-        id="inputEmail"
+        formControlName="inputEmail"
         placeholder="Enter Email..."
       />
     </div>
@@ -34,7 +34,7 @@
       <input
         type="text"
         class="form-control"
-        id="phone"
+        formControlName="phone"
         placeholder="Enter Phone Number..."
       />
     </div>
